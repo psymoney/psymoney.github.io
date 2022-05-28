@@ -1,5 +1,5 @@
 ---
-title: [Coursera] Week4, 5th assignment
+title: '[Coursera] Week4, 5th assignment'
 categories: Coursera Retrospect
 tags: Algorithm MergeSort DivideAndConquer
 author_profile: true
