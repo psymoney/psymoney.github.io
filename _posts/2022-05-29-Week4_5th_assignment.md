@@ -5,8 +5,9 @@ tags: Algorithm MergeSort DivideAndConquer
 author_profile: true
 published: true
 ---
+## Coursera 과제 회고
 
-# Number of Inversions
+### Number of Inversions
 
 ```
 # Problem Introduction
