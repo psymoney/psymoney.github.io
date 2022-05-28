@@ -46,37 +46,37 @@ MergeSort procedures as follows:
 
 배열을 분할하고 각각의 배열을 정렬 및 병합하는 과정에서는 원소간의 관계가 최초 배열에서의 관계와 동일하므로, 분할된 배열을 병합하는 과정에서 역순의 관계를 찾아 모두 더하면 최초 배열에서의 역순 조합의 개수와 동일해진다. 그림을 통해서 보다 자세하게 설명하겠다.
 
-![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/20801937-1dee-4db4-b3ae-974e4f751b5b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223352Z&X-Amz-Expires=86400&X-Amz-Signature=d549958687d47e88c833f644513c6e949f590a5cdebbc8ebbd2a1be11263480c&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+![array#1](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/20801937-1dee-4db4-b3ae-974e4f751b5b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223352Z&X-Amz-Expires=86400&X-Amz-Signature=d549958687d47e88c833f644513c6e949f590a5cdebbc8ebbd2a1be11263480c&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
 위와 같이 원소 [2, 3, 9, 2, 9, 7]를 갖는 배열 A가 있다. 해당 배열에서 역순 조합을 충족하는 인덱스의 조합은 1-3, 2-3, 2-5, 4-5로 총 4개이다.
 
 다음은 해당 배열을 최소 단위로 나눈 결과이다.
 
-![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/34ae900c-ae12-496f-8a36-d2254a4e8d39/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223355Z&X-Amz-Expires=86400&X-Amz-Signature=a2ce8a234f96889c512510a40fc67d65c7df1da99164f278c9b3bfcfaabf35ad&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+![array#2](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/34ae900c-ae12-496f-8a36-d2254a4e8d39/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223355Z&X-Amz-Expires=86400&X-Amz-Signature=a2ce8a234f96889c512510a40fc67d65c7df1da99164f278c9b3bfcfaabf35ad&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
 이제 해당 배열들을 차례대로 병합/정렬하며 역순 조합을 찾아가보겠다.
 
-![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/10177452-dd07-43fa-aa94-107ec473ede5/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223359Z&X-Amz-Expires=86400&X-Amz-Signature=c7156b79f35a8bec5b4e393179443fc7ad24d32ba779344829fcad5b778064c6&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+![array#3](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/10177452-dd07-43fa-aa94-107ec473ede5/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223359Z&X-Amz-Expires=86400&X-Amz-Signature=c7156b79f35a8bec5b4e393179443fc7ad24d32ba779344829fcad5b778064c6&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
 최초 배열 인덱스 0,1에 해당하는 원소 2와 3은 오름차순의 관계에 있으므로, 역순 조합에 해당되지 않는다.
 
-![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7590db46-1092-4680-9307-451c8dc35e3f/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223401Z&X-Amz-Expires=86400&X-Amz-Signature=2c4b5a6f37fdc7f262d005e1746d86e2f43fe1b50199c5d9d0ef0270829aa7ce&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+![array#4](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7590db46-1092-4680-9307-451c8dc35e3f/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223401Z&X-Amz-Expires=86400&X-Amz-Signature=2c4b5a6f37fdc7f262d005e1746d86e2f43fe1b50199c5d9d0ef0270829aa7ce&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
 최초 배열 인덱스 0,1,2에 해당하는 배열 [2,3]과 원소 9 또한 오름차순 관계로, 역순 조합에 해당되지 않는다.
 
-![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/b521d0e0-9f6a-460b-9382-bd1f8847539c/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223403Z&X-Amz-Expires=86400&X-Amz-Signature=517090db5d90f1691e93fb9f1f2ac4ef525ea6910881988f14c1d670cacd1bb5&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+![array#5](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/b521d0e0-9f6a-460b-9382-bd1f8847539c/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223403Z&X-Amz-Expires=86400&X-Amz-Signature=517090db5d90f1691e93fb9f1f2ac4ef525ea6910881988f14c1d670cacd1bb5&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
 최초 배열 인덱스 3,4에 해당하는 원소 2와 9 또한 오름차순 관계이므로 역순 조합에 해당하지 않는다.
 
-![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/86954d8a-d710-4131-960c-9c295cd67b15/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223405Z&X-Amz-Expires=86400&X-Amz-Signature=cbe8923c266ce16ea7fc9d6cc9582b3ee16558dab589d494f5dea93918995f40&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+![array#6](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/86954d8a-d710-4131-960c-9c295cd67b15/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223405Z&X-Amz-Expires=86400&X-Amz-Signature=cbe8923c266ce16ea7fc9d6cc9582b3ee16558dab589d494f5dea93918995f40&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
 최초 배열 인덱스 3,4,5에 해당하는 배열 [2,9]와 원소 7 중 9와 7은 내림차순 관계이므로 역순 조합에 해당한다. 따라서 현재까지 역순 조합의 누적 갯수는 1이다.
 
-![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6a8234a0-9950-4a9f-9686-304521fa7301/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223013Z&X-Amz-Expires=86400&X-Amz-Signature=17c66487e0f917ab1b1ca015fe17b9dcb6ceb91331d8797eebc3d0ecb038f14f&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+![array#7](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6a8234a0-9950-4a9f-9686-304521fa7301/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223013Z&X-Amz-Expires=86400&X-Amz-Signature=17c66487e0f917ab1b1ca015fe17b9dcb6ceb91331d8797eebc3d0ecb038f14f&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
 좌측 배열 [2,3,9]와 우측 배열 [2,7,9] 중 내림차순 관계에 해당하는 원소 조합은 3-2, 9-2, 9-7로 총 3개이다. 따라서 현재까지 역순 조합의 누적 갯수는 4이다.
 
-![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/316d803d-fc13-4cb1-84a8-0cfd01808c7a/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223409Z&X-Amz-Expires=86400&X-Amz-Signature=fc4cc87e3e176d3bafe4117c8c94c8ae3e7b33ac616d4d41da40c18f06a94674&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+![array#8](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/316d803d-fc13-4cb1-84a8-0cfd01808c7a/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223409Z&X-Amz-Expires=86400&X-Amz-Signature=fc4cc87e3e176d3bafe4117c8c94c8ae3e7b33ac616d4d41da40c18f06a94674&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
 배열의 정렬이 완료되었으므로 비교할 좌 우 배열이 존재하지 않는다. 따라서 최종 역순 조합의 갯수는 4로 최초 배열의 역순 조합의 갯수와 동일함을 알 수 있다.
 
