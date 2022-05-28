@@ -1,0 +1,218 @@
+---
+title: [Coursera] Week4, 5th assignment
+categories: Coursera Retrospect
+tags: Algorithm MergeSort DivideAndConquer
+author_profile: true
+published: true
+---
+
+# Number of Inversions
+
+```
+# Problem Introduction
+
+An inversion of a sequence𝑎0,𝑎1, . . . ,𝑎𝑛−1 is a pair of indices 0 ≤𝑖 <𝑗 <𝑛 such
+that𝑎𝑖 >𝑎𝑗 . The number of inversions of a sequence in some sense measures how
+close the sequence is to being sorted. For example, a sorted (in non-descending
+order) sequence contains no inversions at all, while in a sequence sorted in descending order any two elements constitute an inversion (for a total of𝑛(𝑛 − 1)/2
+inversions).
+
+# Problem Description
+
+Task.           The goal in this problem is to count the number of inversions of a given sequence.
+Input Format.   The first line contains an integer 𝑛, the next one contains a sequence of integers
+                𝑎0, 𝑎1, . . . , 𝑎𝑛−1.
+Constraints.    1 ≤ 𝑛 ≤ 10^5, 1 ≤ 𝑎𝑖 ≤ 10^9 for all 0 ≤ 𝑖 < 𝑛.
+Output Format.  Output the number of inversions in the sequence.
+
+# What To Do
+
+This problem can be solved by modifying the merge sort algorithm. For this, we change both the Merge and
+MergeSort procedures as follows:
+    • Merge(𝐵, 𝐶) returns the resulting sorted array and the number of pairs (𝑏, 𝑐) such that 𝑏 ∈ 𝐵, 𝑐 ∈ 𝐶, and 𝑏 > 𝑐;
+    • MergeSort(𝐴) returns a sorted array 𝐴 and the number of inversions in 𝐴.
+
+```
+
+해당 과제는 Divide and conquer 알고리즘 중 하나인 merge sort를 변형하여 주어진 배열 중 임의의 원소 쌍 중에서 내림차순으로 정렬된 조합의 갯수를 찾는 문제였다. 뭐 매주 반복되는 여타 다른 과제와 같이 초반엔 쉽다가 갈 수록 어려워 지는 패턴의 중간에 위치한 문제였지만, 힌트(What to do)를 보고도 뭘 어찌해야 하나 한참 동안 멍 때렸던 문제라 기록하게 되었다. (사실 남은 두 문제는 아직도 손을 못대고 있다)
+
+처음 힌트를 봤을 때 든 생각은 오름차순으로 먼저 정렬하란 건가 싶었다. 하지만 이내 내림차순 정렬을 수행하면 초기 원소의 위치를 알 수가 없어 말도 안되는 방법이란걸 자각했다.
+
+그래서 분할 과정에 집중해 분할의 특징을 잡아내고자 했다.
+
+### 해결 방법
+
+>“배열을 분할한 뒤 정렬/병합 하는 과정에서 좌측 배열과 우측 배열의 원소 쌍 관계는 최초의 배열과 동일하다.”
+
+배열을 분할하고 각각의 배열을 정렬 및 병합하는 과정에서는 원소간의 관계가 최초 배열에서의 관계와 동일하므로, 분할된 배열을 병합하는 과정에서 역순의 관계를 찾아 모두 더하면 최초 배열에서의 역순 조합의 개수와 동일해진다. 그림을 통해서 보다 자세하게 설명하겠다.
+
+![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/20801937-1dee-4db4-b3ae-974e4f751b5b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223352Z&X-Amz-Expires=86400&X-Amz-Signature=d549958687d47e88c833f644513c6e949f590a5cdebbc8ebbd2a1be11263480c&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+
+위와 같이 원소 [2, 3, 9, 2, 9, 7]를 갖는 배열 A가 있다. 해당 배열에서 역순 조합을 충족하는 인덱스의 조합은 1-3, 2-3, 2-5, 4-5로 총 4개이다.
+
+다음은 해당 배열을 최소 단위로 나눈 결과이다.
+
+![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/34ae900c-ae12-496f-8a36-d2254a4e8d39/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223355Z&X-Amz-Expires=86400&X-Amz-Signature=a2ce8a234f96889c512510a40fc67d65c7df1da99164f278c9b3bfcfaabf35ad&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+
+이제 해당 배열들을 차례대로 병합/정렬하며 역순 조합을 찾아가보겠다.
+
+![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/10177452-dd07-43fa-aa94-107ec473ede5/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223359Z&X-Amz-Expires=86400&X-Amz-Signature=c7156b79f35a8bec5b4e393179443fc7ad24d32ba779344829fcad5b778064c6&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+
+최초 배열 인덱스 0,1에 해당하는 원소 2와 3은 오름차순의 관계에 있으므로, 역순 조합에 해당되지 않는다.
+
+![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7590db46-1092-4680-9307-451c8dc35e3f/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223401Z&X-Amz-Expires=86400&X-Amz-Signature=2c4b5a6f37fdc7f262d005e1746d86e2f43fe1b50199c5d9d0ef0270829aa7ce&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+
+최초 배열 인덱스 0,1,2에 해당하는 배열 [2,3]과 원소 9 또한 오름차순 관계로, 역순 조합에 해당되지 않는다.
+
+![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/b521d0e0-9f6a-460b-9382-bd1f8847539c/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223403Z&X-Amz-Expires=86400&X-Amz-Signature=517090db5d90f1691e93fb9f1f2ac4ef525ea6910881988f14c1d670cacd1bb5&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+
+최초 배열 인덱스 3,4에 해당하는 원소 2와 9 또한 오름차순 관계이므로 역순 조합에 해당하지 않는다.
+
+![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/86954d8a-d710-4131-960c-9c295cd67b15/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223405Z&X-Amz-Expires=86400&X-Amz-Signature=cbe8923c266ce16ea7fc9d6cc9582b3ee16558dab589d494f5dea93918995f40&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+
+최초 배열 인덱스 3,4,5에 해당하는 배열 [2,9]와 원소 7 중 9와 7은 내림차순 관계이므로 역순 조합에 해당한다. 따라서 현재까지 역순 조합의 누적 갯수는 1이다.
+
+![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6a8234a0-9950-4a9f-9686-304521fa7301/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223013Z&X-Amz-Expires=86400&X-Amz-Signature=17c66487e0f917ab1b1ca015fe17b9dcb6ceb91331d8797eebc3d0ecb038f14f&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+
+좌측 배열 [2,3,9]와 우측 배열 [2,7,9] 중 내림차순 관계에 해당하는 원소 조합은 3-2, 9-2, 9-7로 총 3개이다. 따라서 현재까지 역순 조합의 누적 갯수는 4이다.
+
+![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/316d803d-fc13-4cb1-84a8-0cfd01808c7a/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220528%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220528T223409Z&X-Amz-Expires=86400&X-Amz-Signature=fc4cc87e3e176d3bafe4117c8c94c8ae3e7b33ac616d4d41da40c18f06a94674&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+
+배열의 정렬이 완료되었으므로 비교할 좌 우 배열이 존재하지 않는다. 따라서 최종 역순 조합의 갯수는 4로 최초 배열의 역순 조합의 갯수와 동일함을 알 수 있다.
+
+### 구현
+
+```python
+def merge(a, b):
+    merged_array = []
+    cnt = 0
+
+    i, j = 0, 0
+    while i < len(a) and j < len(b):
+        if a[i] <= b[j]:
+            merged_array.append(a[i])
+            i += 1
+        elif b[j] < a[i]:
+            merged_array.append(b[j])
+            j += 1
+            cnt += 1
+
+    if i != len(a):
+        merged_array += a[i:]
+    if j != len(b):
+        merged_array += b[j:]
+
+    return merged_array, cnt
+
+def merge_sort(array, l, r):
+    if l >= r:
+        return [array[l]], 0
+
+    mid = (l + r) // 2
+
+    a, cnt_a = merge_sort(array, l, mid)
+    b, cnt_b = merge_sort(array, mid + 1, r)
+
+    sorted_array, inversion_cnt = merge(a, b)
+    inversion_cnt += cnt_a + cnt_b
+    return sorted_array, inversion_cnt
+
+def get_number_of_inversions(a, b, left, right):
+    sorted_array, number_of_inversions = merge_sort(a, left, right - 1)
+    return number_of_inversions
+
+```
+
+위 코드는 해결방법을 찾고난 뒤, 구현한 최초 코드이다. 당당하게 제출을 했으나 테스트를 통과하지 못했다. 문제가 된 테스트 케이스는 `[9, 8, 7, 3, 2, 1]` 최초부터 내림차순으로 주어진 배열의 경우였다.
+
+내림차순의 경우 또한 해결할 수 있도록 `merge(a, b)` 함수를 다음과 같이 코드를 수정하였다.
+
+```python
+def merge(a, b):
+    merged_array = []
+    cnt = 0
+    for i in range(len(a)):
+        for j in range(len(b)):
+            if a[i] > b[j]:
+                cnt += 1
+                continue
+            if a[i] <= b[j]:
+                break
+
+    i, j = 0, 0
+    while i < len(a) and j < len(b):
+        if a[i] <= b[j]:
+            merged_array.append(a[i])
+            i += 1
+						# added for descending order case
+            if j > 0 and i < len(a):
+                for c in range(0, j):
+                    if a[i] > b[c]:
+                        cnt += 1
+        elif b[j] < a[i]:
+            merged_array.append(b[j])
+            j += 1
+            cnt += 1
+
+    if i != len(a):
+        merged_array += a[i:]
+				# added for descending order case
+				i += 1
+        cnt += (len(a) - i) * len(b)
+        for c in range(i, len(a)):
+            for d in range(len(b)):
+                if a[c] > b[d]:
+                    cnt += 1
+                    continue
+                else:
+                    break
+    if j != len(b):
+        merged_array += b[j:]
+
+    return merged_array, cnt
+
+```
+
+수정된 부분은 while 반복문 내부의 첫번째 분기와 반복문을 빠져나간 후 첫 번째 조건문이다. 첫 번째 수정된 코드는 $a[i-1] < b[j]$ 인 경우에 `a[i]`와 `b[0,…,j-1]`을 비교해 역순 조합을 찾아내는 역할을 한다. 두 번째 부분은 배열 `b`의 반복이 먼저 종료되었을때 배열 `a`의 나머지 원소들과 배열 `b`의 원소들을 비교하여 역순 조합을 찾는 역할을 한다.
+
+해당 코드를 제출하니 기존 제출 코드에서 문제가 되었던 테스트 케이스 `[9, 8, 7, 3, 2, 1]`는 무난하게 통과하였다. 하지만 이후 배열의 크기가 큰 케이스에서 timeout이 발생되며 통과하지 못하였다.
+
+원인은 기존에 추가한 코드의 시간복잡도가 너무 높았기 때문이다.
+
+수정된 두 부분 모두 반복을 통해 코드를 직접 비교하며, 두 번째 파트는 이중 반복이 수행된다. 따라서 해당 반복문들을 제거해줄 새로운 방식이 필요했다.
+
+해결책은 생각보다 간단했다. 이미 오름차순으로 정렬된 배열들간의 비교였으므로, $a[i-1] > b[j-1]$라면 $a[i] > b[0,…,j-1]$이 성립된다. 따라서 이 경우 추가되는 역순 조합의 갯수는 `j`가 된다.
+
+두 번째 경우 또한 같은 맥락으로, $i < len(a)$이며 모든 $j$에 대해 $a[i] > b[j]$가 성립되면 추가되는 역순 조합의 갯수는 `j * (len(a) - i)` 가 된다.
+
+```python
+def merge(a, b):
+    merged_array = []
+    cnt = 0
+
+    i, j = 0, 0
+    while i < len(a) and j < len(b):
+        if a[i] <= b[j]:
+            merged_array.append(a[i])
+            i += 1
+            if j > 0 and i < len(a):      # fixed code
+                cnt += j
+        elif b[j] < a[i]:
+            merged_array.append(b[j])
+            j += 1
+            cnt += 1
+            if DEBUG:
+                print(f'a = {a}, b = {b}, i = {i}, j = {j}, cnt = {cnt}')
+
+    if i != len(a):
+        merged_array += a[i:]
+        i += 1
+        cnt += (len(a) - i) * len(b)      # fixed code
+    if j != len(b):
+        merged_array += b[j:]
+
+    return merged_array, cnt
+
+```
+
+위 코드는 최종적으로 제출한 코드의 `merge(a, b)`함수이며, 모든 케이스를 통과함으로써 해당 과제를 패스할 수 있었다.
