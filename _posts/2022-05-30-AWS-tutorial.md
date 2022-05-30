@@ -1,7 +1,7 @@
 ---
 title: 'AWS에 Jupyter Notebook 올리기'
-categories: Coursera
-tags: Algorithm
+categories: AWS
+tags: EC2 Linux
 author_profile: true
 published: true
 ---
