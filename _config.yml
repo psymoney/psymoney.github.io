@@ -103,7 +103,7 @@ analytics:
 # Site Author
 author:
   name             : "Psymoney"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/img/selfie.jpeg"
   bio              : "excelsior"
   location         : "Goyang, Korea"
   email            : "sangykimiv@gmail.com"
