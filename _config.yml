@@ -12,15 +12,15 @@
 
 # theme                  : "minimal-mistakes-jekyll"
 # remote_theme           : "mmistakes/minimal-mistakes"
-minimal_mistakes_skin    : "dirt" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin    : "air" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Psymoney's tech blog"
+title                    : "Land of Psymoney"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Psymoney"
-description              : "Tech blog for archiving."
+description              : "blog and diary, somewhere between of"
 url                      : "https://psymoney.github.io"
 baseurl                  : # "/blog"
 repository               : "psymoney/psymoney.github.io"
