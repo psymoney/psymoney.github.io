@@ -18,7 +18,7 @@ minimal_mistakes_skin    : "air" # "air", "aqua", "contrast", "dark", "dirt", "n
 locale                   : "en-US"
 title                    : "Land of Psymoney"
 title_separator          : "-"
-subtitle                 : # site tagline that appears below site title in masthead
+subtitle                 : "blog and diary, somewhere between of"
 name                     : "Psymoney"
 description              : "blog and diary, somewhere between of"
 url                      : "https://psymoney.github.io"
